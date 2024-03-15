@@ -1,0 +1,11 @@
+{
+    "dev": {
+        "aws_region": "us-east-1",
+        "django_settings": "parcial.settings",
+        "profile_name": "default",
+        "project_name": "environment",
+        "runtime": "python3.10",
+        "s3_bucket": "zappa-pp44xz0n0"
+        "lambda_handler": "app.descargarCasas_handler"
+    }
+}
