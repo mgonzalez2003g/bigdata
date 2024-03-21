@@ -5,11 +5,7 @@ import pandas as pd
 
 
 def extract_data(html_content):
-    """
-    Función para extraer el precio, metraje,
-    número de habitaciones y características
-    adicionales de las páginas HTML.
-    """
+        
     soup = BeautifulSoup(html_content, 'html.parser')
     # print("HTML:     ",soup)
     properties = soup.find_all('div', class_='listing-card__information')
@@ -23,33 +19,30 @@ def extract_data(html_content):
         area_span = None
         if area_div:
             area_span = area_div.find_next('span')
-        area = area_span.text.strip() if area_span else "No disponible"
-        bedrooms_element = prop.find('span', attrs={'data-test': 'bedrooms'})
+            area = area_span.text.strip() if area_span else "No disponible"
+            bedrooms_element = prop.find('span', attrs={'data-test': 'bedrooms'})
 
         if bedrooms_element:
             bedrooms = bedrooms_element.text.strip()
         else:
             bedrooms = 'No disponible'
-        adicional = prop.find('span', class_='facility-item__text')
+            adicional = prop.find('span', class_='facility-item__text')
 
         if adicional:
             adicional_text = adicional.text.strip()
         else:
             adicional_text = 'No disponible'
 
-        data.append([price, area, bedrooms, adicional_text])
+            data.append([price, area, bedrooms, adicional_text])
         # print(data)
 
     return data
 
 
 def handler(event, context):
-    """
-    Función para procesar los datos descargados
-    y guardarlos en un archivo CSV en AWS S3.
-    """
+   
     s3 = boto3.client('s3')
-    bucket_name = 'parcial18032024'
+    bucket_name = 'bucket-parcial'
 
     # Obtener la fecha actual
     current_date = datetime.now().strftime('%Y-%m-%d')
@@ -100,7 +93,7 @@ def handler(event, context):
                f'day={current_date[8:]}/'
                f'{current_date}.csv')
     csv_buffer = df.to_csv(index=False)
-    s3.put_object(Body=csv_buffer, Bucket='parcialfinal18032024', Key=csv_key)
+    s3.put_object(Body=csv_buffer, Bucket='bucketparcial', Key=csv_key)
 
     return {
         'statusCode': 200,
