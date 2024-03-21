@@ -15,22 +15,28 @@ def cargar_archivo_en_s3(bucket_name, file_key, file_content):
     s3_client.put_object(Bucket=bucket_name, Key=file_key, Body=file_content)
 
 def descargarCasas_handler(event, context):
-    # URL base del sitio web
-    base_url = "https://casas.mitula.com.co/"
+    # Lista de enlaces de las categorías del sitio web
+    links_categorias = [
+        "https://casas.mitula.com.co/casas/arriendo-locales-medellin",
+        "https://casas.mitula.com.co/casas/apartamentos-ceja",
+        "https://casas.mitula.com.co/casas/casas-armenia",
+        "https://casas.mitula.com.co/casas/casas-mosquera",
+        "https://casas.mitula.com.co/casas/arriendo-casas-floridablanca"
+        
+    ]
+    
     # Nombre del bucket de S3
     bucket_name = "bucket-parcial"
     
     # Obtener la fecha actual
     fecha_actual = datetime.now()
     
-    # Iterar sobre las 5 primeras páginas del sitio web
-    for i in range(1, 6):
-        # Construir la URL de la página actual
-        url_pagina = f"{base_url}?page={i}"
+    # Iterar sobre los enlaces de las categorías
+    for i, link_categoria in enumerate(links_categorias, start=1):
         # Descargar la página
-        contenido_pagina = descargar_pagina(url_pagina)
+        contenido_pagina = descargar_pagina(link_categoria)
         # Construir la clave del archivo en S3
-        file_key = f"casas/contenido-pag-{i}-{fecha_actual.strftime('%Y-%m-%d')}.html"
+        file_key = f"casas/contenido-categoria-{i}-{fecha_actual.strftime('%Y-%m-%d')}.html"
         # Cargar el contenido en S3
         cargar_archivo_en_s3(bucket_name, file_key, contenido_pagina)
     

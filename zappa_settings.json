@@ -5,7 +5,10 @@
         "profile_name": "default",
         "project_name": "environment",
         "runtime": "python3.10",
-        "s3_bucket": "zappa-pp44xz0n0"
-        "lambda_handler": "app.descargarCasas_handler"
+        "s3_bucket": "bucket-parcial",
+        "lambda_handler": "app.descargarCasas_handler",
+        "manage_roles": false,
+        "role_name": "LabRole",
+        "role_arn": "arn:aws:iam::730335349916:role/LabRole"
     }
 }
