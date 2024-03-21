@@ -5,7 +5,7 @@ from datetime import datetime
 
 def f(event, context):
     s3 = boto3.client('s3')
-    bucket_name = 'buckets-raws'
+    bucket_name = 'bucket-parcial2'
 
     for page_number in range(1, 6):
         if page_number == 1:

@@ -4,7 +4,7 @@
         "aws_region": "us-east-1",
         "project_name": "bigdata2",
         "runtime": "python3.10",
-        "s3_bucket": "buckets-raws",
+        "s3_bucket": "bucket-parcial2",
         "keep_warm": false,
         "apigateway_enabled": false,
         "manage_roles": false,
@@ -26,7 +26,7 @@
         "apigateway_enabled": false,
         "project_name": "bigdata2",
         "runtime": "python3.10",
-        "s3_bucket": "buckets-final",
+        "s3_bucket": "buckets-parcial",
 
         "function": "extract_data.handler",
         "type": "s3",
